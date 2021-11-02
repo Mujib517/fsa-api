@@ -29,9 +29,49 @@ const post = (req, res) => {
     res.status(201).send();
 }
 
+const getById = (req, res) => {
+    const id = +req.params.id;
+    let book;
+    for (let i = 0; i < books.length; i++) {
+        if (id === books[i].id) book = books[i];
+    }
+    if (book) res.status(200).send(book);
+    else res.status(404).send("Not found");
+};
+
+const remove = (req, res) => {
+    const id = +req.params.id;
+
+    for (let i = 0; i < books.length; i++) {
+        if (books[i].id === id) {
+            books.splice(i, 1);
+        }
+    }
+
+    res.status(204).send();
+}
+
+const update = (req, res) => {
+    const id = +req.params.id;
+    const book = req.body;
+
+    for (let i = 0; i < books.length; i++) {
+        if (books[i].id === id) {
+            books[i].name = book.name;
+            books[i].price = book.price;
+        }
+    }
+
+    res.status(204).send();
+}
+
 module.exports = {
     get,
-    post
+    getById,
+    post,
+    remove,
+    update
 }
 
 // create an endpoint to add a new book
+// create an endpoint to see book detail by id
