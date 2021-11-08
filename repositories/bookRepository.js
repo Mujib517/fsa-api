@@ -9,7 +9,13 @@ function add(data) {
     return book.save();
 }
 
+function getById(id) {
+    // SELECT * FROM BOOKS WHERE _ID = ID
+    return Book.findOne({ _id: id }, { __v: 0 });
+}
+
 module.exports = {
     getAll,
-    add
+    getById,
+    add,
 }
