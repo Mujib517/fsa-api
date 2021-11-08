@@ -32,11 +32,12 @@ const get = async (req, res) => {
 };
 
 
-const post = (req, res) => {
+const post = async (req, res) => {
     const book = req.body;
-    books.push(book);
+    await bookRepository.add(book);
 
-    res.status(201).send();
+    res.status(201);
+    res.send("Created");
 }
 
 const getById = (req, res) => {
