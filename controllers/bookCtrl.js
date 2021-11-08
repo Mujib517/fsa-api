@@ -1,4 +1,5 @@
-
+const Book = require('../models/bookModel');
+const bookRepository = require('../repositories/bookRepository');
 // REST
 // concept
 // everything is a resource
@@ -11,16 +12,25 @@
 // 2. stateless (sessions) scalable
 // 3. cacheability 
 // 4. layered system
+// drivers ORM (Object relational mapper) ODM
+// mongoose
 const books = [{ id: 1, name: 'Clean Code', price: 100 },
 { id: 2, name: 'Clean Coder', price: 100 },
 { id: 3, name: 'Clean Architecture', price: 20 }];
 
 
-const get = (req, res) => {
-    // res.status(200);
-    // res.json(books);
-    res.status(200).json(books);
+const get = async (req, res) => {
+    try {
+        const books = await bookRepository.getAll()
+        res.status(200);
+        res.json(books);
+    } catch (e) {
+        // TODO: Logging
+        res.status(500);
+        res.send("Internal Server Error");
+    }
 };
+
 
 const post = (req, res) => {
     const book = req.body;
