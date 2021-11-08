@@ -14,8 +14,22 @@ function getById(id) {
     return Book.findOne({ _id: id }, { __v: 0 });
 }
 
+function remove(id) {
+    return Book.remove({ _id: id });
+}
+
+function update(id, data) {
+    // Update books set name=name, price = price where _id = id 
+    return Book.update({ _id: id }, {
+        $set: { name: data.name },
+        $set: { price: data.price }
+    });
+}
+
 module.exports = {
     getAll,
     getById,
     add,
+    update,
+    remove,
 }

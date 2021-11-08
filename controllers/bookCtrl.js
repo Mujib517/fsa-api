@@ -31,7 +31,6 @@ const get = async (req, res) => {
     }
 };
 
-
 const post = async (req, res) => {
     const book = req.body;
     await bookRepository.add(book);
@@ -47,30 +46,23 @@ const getById = async (req, res) => {
     res.json(book);
 };
 
-const remove = (req, res) => {
-    const id = +req.params.id;
-
-    for (let i = 0; i < books.length; i++) {
-        if (books[i].id === id) {
-            books.splice(i, 1);
-        }
-    }
+const remove = async (req, res) => {
+    const id = req.params.id;
+    await bookRepository.remove(id);
 
     res.status(204).send();
 }
 
-const update = (req, res) => {
-    const id = +req.params.id;
-    const book = req.body;
+const update = async (req, res) => {
+    try {
+        const id = req.params.id;
+        await bookRepository.update(id, req.body);
 
-    for (let i = 0; i < books.length; i++) {
-        if (books[i].id === id) {
-            books[i].name = book.name;
-            books[i].price = book.price;
-        }
+        res.status(204).send();
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Internal Server Error");
     }
-
-    res.status(204).send();
 }
 
 module.exports = {
