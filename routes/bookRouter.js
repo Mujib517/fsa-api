@@ -8,5 +8,6 @@ router.get('/api/books/:id', bookCtrl.getById);
 router.post('/api/books', bookCtrl.post);
 router.delete('/api/books/:id', bookCtrl.remove);
 router.put('/api/books/:id', bookCtrl.update);
+router.patch('/api/books/:id', bookCtrl.patch);
 
 module.exports = router;

@@ -21,8 +21,14 @@ function remove(id) {
 function update(id, data) {
     // Update books set name=name, price = price where _id = id 
     return Book.update({ _id: id }, {
-        $set: { name: data.name },
-        $set: { price: data.price }
+        $set: { name: data.name, price: data.price }
+    });
+}
+
+function patch(id, data) {
+    delete data._id;
+    return Book.update({ _id: id }, {
+        $set: data
     });
 }
 
@@ -31,5 +37,6 @@ module.exports = {
     getById,
     add,
     update,
+    patch,
     remove,
 }

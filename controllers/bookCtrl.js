@@ -65,12 +65,20 @@ const update = async (req, res) => {
     }
 }
 
+const patch = async (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+    await bookRepository.patch(id, body);
+    res.status(204).send();
+}
+
 module.exports = {
     get,
     getById,
     post,
     remove,
-    update
+    update,
+    patch
 }
 
 // create an endpoint to add a new book
