@@ -21,10 +21,22 @@ const books = [{ id: 1, name: 'Clean Code', price: 100 },
 
 const get = async (req, res) => {
     try {
-        const books = await bookRepository.getAll()
+        const page = +req.params.page || 0;
+        const limit = +req.params.limit || 10;
+        const books = await bookRepository.getAll(page, limit)
+        const totalRecords = await bookRepository.count();
+
+        const response = {
+            metadata: {
+                totalRecords: totalRecords,
+                totalPages: Math.ceil(totalRecords / limit)
+            },
+            data: books
+        }
         res.status(200);
-        res.json(books);
+        res.json(response);
     } catch (e) {
+        console.log(e);
         // TODO: Logging
         res.status(500);
         res.send("Internal Server Error");

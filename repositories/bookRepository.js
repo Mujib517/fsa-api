@@ -1,7 +1,13 @@
 const Book = require('../models/bookModel');
 
-function getAll() {
-    return Book.find({}, { '__v': 0 });
+function getAll(page, limit) {
+    return Book.find({}, { __v: 0 })
+        .skip(page * limit)
+        .limit(limit);
+}
+
+function count() {
+    return Book.count();
 }
 
 function add(data) {
@@ -39,4 +45,5 @@ module.exports = {
     update,
     patch,
     remove,
+    count,
 }
