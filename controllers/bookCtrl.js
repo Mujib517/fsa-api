@@ -6,7 +6,9 @@ const get = async (req, res) => {
     try {
         const page = +req.params.page || 0;
         const limit = +req.params.limit || 10;
-        const response = await bookService.getAll(page, limit);
+        const sort = req.query.sort;
+        const direction = req.query.direction;
+        const response = await bookService.getAll(page, limit, sort, direction);
         res.status(200).json(response);
     } catch (e) {
         console.log(e);

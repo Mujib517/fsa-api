@@ -1,7 +1,8 @@
 const Book = require('../models/bookModel');
 
-function getAll(page, limit) {
+function getAll(page, limit, sort, direction) {
     return Book.find({}, { __v: 0 })
+        .sort({ [sort]: direction })
         .skip(page * limit)
         .limit(limit);
 }
