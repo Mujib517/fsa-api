@@ -1,14 +1,14 @@
 const bookRepository = require('../repositories/bookRepository');
 
-async function getAll(page, limit, sort = 'updatedAt', direction = 'desc') {
-    direction = direction.toLowerCase() === 'desc' ? -1 : 1;
-    const books = await bookRepository.getAll(page, limit, sort, direction)
+async function getAll(options) {
+    options.direction = options.direction.toLowerCase() === 'desc' ? -1 : 1;
+    const books = await bookRepository.getAll(options)
     const totalRecords = await bookRepository.count();
 
     const response = {
         metadata: {
             totalRecords: totalRecords,
-            totalPages: Math.ceil(totalRecords / limit)
+            totalPages: Math.ceil(totalRecords / options.limit)
         },
         data: books
     }

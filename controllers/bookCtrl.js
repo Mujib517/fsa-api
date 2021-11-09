@@ -4,11 +4,13 @@ const bookService = require('../services/bookService');
 
 const get = async (req, res) => {
     try {
-        const page = +req.params.page || 0;
-        const limit = +req.params.limit || 10;
-        const sort = req.query.sort;
-        const direction = req.query.direction;
-        const response = await bookService.getAll(page, limit, sort, direction);
+        const options = {
+            page: +req.params.page || 0,
+            limit: +req.params.limit || 10,
+            sort: req.query.sort || 'updatedAt',
+            direction: req.query.direction || 'desc'
+        }
+        const response = await bookService.getAll(options);
         res.status(200).json(response);
     } catch (e) {
         console.log(e);
