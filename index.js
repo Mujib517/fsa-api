@@ -13,9 +13,17 @@ mongoose.connect('mongodb://localhost:27017/fsa', () => {
     console.log("Db connected");
 });
 
+function middleware(req, res, next) {
+    console.log('inside middleware');
+    next();
+}
+
+
+
 app.use(bodyParser.json());
 
 // route
 // endpoint
 app.use(defaultRouter);
+app.use(middleware);
 app.use(bookRouter);

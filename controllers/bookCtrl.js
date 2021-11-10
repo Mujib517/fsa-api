@@ -3,7 +3,6 @@ const bookRepository = require('../repositories/bookRepository');
 const bookService = require('../services/bookService');
 
 const get = async (req, res) => {
-    console.log(req.query.search, 'search');
     try {
         const options = {
             page: +req.params.page || 0,
