@@ -5,7 +5,7 @@ function getAll(options) {
     // SELECT * FROM BOOKS WHERE NAME LIKE %clean%
     // SELECT * FROM BOOKS WHERE NAME = 'Clean Code'
     const { direction, sort, page, limit } = options;
-    return Book.find({ name: { $regex: options.search } }, { __v: 0 })
+    return Book.find({ name: { $regex: options.search, $options: 'i' } }, { __v: 0 })
         .sort({ [sort]: direction })
         .skip(page * limit)
         .limit(limit);
