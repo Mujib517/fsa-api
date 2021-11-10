@@ -18,7 +18,7 @@ function add(data) {
     const book = new Book(data);
     const error = book.validateSync();
     if (!error) return book.save();
-    throw new Error("Validation Error");
+    return new Promise((res, rej) => rej(error));
 }
 
 function getById(id) {

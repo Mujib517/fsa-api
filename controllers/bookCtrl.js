@@ -30,10 +30,10 @@ const post = async (req, res) => {
         res.status(201);
         res.send("Created");
     } catch (e) {
-        if (e.message === 'Validation Error') {
-            res.status(400).send("Bad Request");
+        if (e.name === "ValidationError") {
+            res.status(400).send(e);
         } else {
-            res.status(500).send(e);
+            res.status(500).send("Internal Server Error");
         }
     }
 }
