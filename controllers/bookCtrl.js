@@ -23,11 +23,19 @@ const get = async (req, res) => {
 };
 
 const post = async (req, res) => {
-    const book = req.body;
-    await bookRepository.add(book);
+    try {
+        const book = req.body;
+        await bookRepository.add(book);
 
-    res.status(201);
-    res.send("Created");
+        res.status(201);
+        res.send("Created");
+    } catch (e) {
+        if (e.message === 'Validation Error') {
+            res.status(400).send("Bad Request");
+        } else {
+            res.status(500).send(e);
+        }
+    }
 }
 
 const getById = async (req, res) => {

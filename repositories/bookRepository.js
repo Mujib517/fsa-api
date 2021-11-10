@@ -16,7 +16,9 @@ function count(options) {
 
 function add(data) {
     const book = new Book(data);
-    return book.save();
+    const error = book.validateSync();
+    if (!error) return book.save();
+    throw new Error("Validation Error");
 }
 
 function getById(id) {
