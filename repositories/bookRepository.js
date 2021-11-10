@@ -1,7 +1,6 @@
 const Book = require('../models/bookModel');
 
 function getAll(options) {
-
     // SELECT * FROM BOOKS WHERE NAME LIKE %clean%
     // SELECT * FROM BOOKS WHERE NAME = 'Clean Code'
     const { direction, sort, page, limit } = options;
@@ -11,8 +10,8 @@ function getAll(options) {
         .limit(limit);
 }
 
-function count() {
-    return Book.count();
+function count(options) {
+    return Book.count({ name: { $regex: options.search, $options: 'i' } });
 }
 
 function add(data) {
