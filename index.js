@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path');
+const config = require('./config');
 
 
 const PORT = 3000;
@@ -13,7 +14,12 @@ const app = express();
 
 app.listen(3000, () => console.log("Server is running on ", PORT));
 
-mongoose.connect('mongodb://localhost:27017/fsa', () => {
+const env = process.env.NODE_ENV;
+const dbHost = config[env].dbHost;
+
+console.log(dbHost);
+
+mongoose.connect(dbHost, () => {
     console.log("Db connected");
 });
 
