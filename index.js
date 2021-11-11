@@ -8,11 +8,10 @@ const fs = require('fs');
 const path = require('path');
 const config = require('./config');
 
-
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
-app.listen(3000, () => console.log("Server is running on ", PORT));
+app.listen(PORT, () => console.log("Server is running on ", PORT));
 
 const env = process.env.NODE_ENV;
 const dbHost = config[env].dbHost;
