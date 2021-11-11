@@ -3,6 +3,9 @@ const defaultRouter = require('./routes/defaultRouter');
 const bookRouter = require('./routes/bookRouter');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
+const fs = require('fs');
+const path = require('path');
 
 const PORT = 3000;
 const app = express();
@@ -18,9 +21,15 @@ function middleware(req, res, next) {
     next();
 }
 
-
+// request logging
+// application logging
 
 app.use(bodyParser.json());
+
+const fileStream = fs.createWriteStream(path.join(__dirname, 'logs', 'request.log'), { flags: 'a' });
+
+app.use(morgan('dev'));
+app.use(morgan('combined', { stream: fileStream }));
 
 // route
 // endpoint
