@@ -6,6 +6,6 @@ module.exports = {
     stage: {},
     qa: {},
     production: {
-        dbHost: ''
+        dbHost: 'mongodb+srv://admin:admin@cluster0.qcdda.mongodb.net/fsa'
     }
 }
