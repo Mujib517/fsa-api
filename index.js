@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path');
 
+
 const PORT = 3000;
 const app = express();
 
@@ -30,6 +31,13 @@ const fileStream = fs.createWriteStream(path.join(__dirname, 'logs', 'request.lo
 
 app.use(morgan('dev'));
 app.use(morgan('combined', { stream: fileStream }));
+
+// debug
+// info
+// warn
+// error
+// singleton
+
 
 // route
 // endpoint

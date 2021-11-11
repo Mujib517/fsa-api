@@ -1,9 +1,12 @@
 const Book = require('../models/bookModel');
 const bookRepository = require('../repositories/bookRepository');
 const bookService = require('../services/bookService');
+const logger = require('../utils/appLogger');
 
 const get = async (req, res) => {
     try {
+        logger.info("request arrived");
+        logger.info(req);
         const options = {
             page: +req.params.page || 0,
             limit: +req.params.limit || 10,
@@ -13,8 +16,9 @@ const get = async (req, res) => {
         }
         const response = await bookService.getAll(options);
         res.status(200).json(response);
+        logger.info(res);
     } catch (e) {
-        console.log(e);
+        logger.error(e);
         // TODO: Logging
         res.status(500);
         res.send("Internal Server Error");
