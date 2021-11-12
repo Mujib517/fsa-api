@@ -6,7 +6,6 @@ function userExists(e) {
 
 async function register(req, res) {
     try {
-
         const data = req.body;
         await userRepository.add(data);
 
@@ -19,7 +18,16 @@ async function register(req, res) {
     }
 }
 
+async function login(req, res) {
+    const user = await userRepository.getUser(req.body);
+    if (user) {
+        res.status(200).send("Login Success");
+    }
+    else res.status(401).send("Unauthorized");
+}
+
 
 module.exports = {
-    register
+    register,
+    login
 }
