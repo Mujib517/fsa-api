@@ -1,13 +1,15 @@
 const express = require('express');
 const defaultRouter = require('./routes/defaultRouter');
 const bookRouter = require('./routes/bookRouter');
+const userRouter = require('./routes/userRouter');
+
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path');
 const config = require('./config');
-const middlewares = require('./utils/middlewares')
+
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -40,7 +42,8 @@ app.use(morgan('combined', { stream: fileStream }));
 // endpoint
 //public
 app.use(defaultRouter);
+app.use('/api/users', userRouter);
 
-app.use(middlewares.basicAuth);
+// app.use(middlewares.basicAuth);
 // private
-app.use(bookRouter);
+app.use('/api/books', bookRouter);
