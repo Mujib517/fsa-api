@@ -2,6 +2,7 @@ const express = require('express');
 const defaultRouter = require('./routes/defaultRouter');
 const bookRouter = require('./routes/bookRouter');
 const userRouter = require('./routes/userRouter');
+const middlewares = require('./utils/middlewares');
 
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -44,6 +45,6 @@ app.use(morgan('combined', { stream: fileStream }));
 app.use(defaultRouter);
 app.use('/api/users', userRouter);
 
-// app.use(middlewares.basicAuth);
+app.use(middlewares.basicAuth);
 // private
 app.use('/api/books', bookRouter);
