@@ -8,6 +8,8 @@ router.get('/', (req, res) => {
 // 99.99%
 // localhost:3000/health
 // monitoring & alerting
+// basic authentication
+// username & password
 router.get('/health', (req, res) => {
     res.status(200).json({ status: 'Up' });
 });

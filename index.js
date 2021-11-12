@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path');
 const config = require('./config');
+const middlewares = require('./utils/middlewares')
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -22,14 +23,6 @@ mongoose.connect(dbHost, () => {
     console.log("Db connected");
 });
 
-function middleware(req, res, next) {
-    console.log('inside middleware');
-    next();
-}
-
-// request logging
-// application logging
-
 app.use(bodyParser.json());
 
 const fileStream = fs.createWriteStream(path.join(__dirname, 'logs', 'request.log'), { flags: 'a' });
@@ -43,9 +36,11 @@ app.use(morgan('combined', { stream: fileStream }));
 // error
 // singleton
 
-
 // route
 // endpoint
+//public
 app.use(defaultRouter);
-app.use(middleware);
+
+app.use(middlewares.basicAuth);
+// private
 app.use(bookRouter);
