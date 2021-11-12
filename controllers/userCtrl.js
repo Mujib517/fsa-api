@@ -11,6 +11,7 @@ async function register(req, res) {
 
         res.status(201).send("Created");
     } catch (e) {
+        console.log(e);
         if (userExists(e))
             res.status(400).send("User already exists");
         else
