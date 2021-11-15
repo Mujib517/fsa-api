@@ -45,6 +45,7 @@ app.use(morgan('combined', { stream: fileStream }));
 app.use(defaultRouter);
 app.use('/api/users', userRouter);
 
-app.use(middlewares.basicAuth);
+// app.use(middlewares.basicAuth);
+app.use(middlewares.tokenAuth);
 // private
 app.use('/api/books', bookRouter);

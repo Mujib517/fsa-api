@@ -1,4 +1,5 @@
 const userRepository = require('../repositories/userRepository');
+const jwt = require('jsonwebtoken');
 const { comparePasswords } = require('./auth');
 
 //middelware
@@ -22,6 +23,24 @@ async function basicAuth(req, res, next) {
     else res.status(401).send("Unauthorized");
 }
 
+function tokenAuth(req, res, next) {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+        res.status(401).send("Unauthorized");
+        return;
+    } else {
+        const tokens = authHeader.split(' '); // Bearer akfjdkjfkdj
+        const jwtToken = tokens[1];
+        jwt.verify(jwtToken, 'secret', (err, data) => {
+            if (!err) next();
+            else {
+                res.status(401).send("Unauthorized");
+            }
+        });
+    }
+}
+
 module.exports = {
-    basicAuth
+    basicAuth,
+    tokenAuth
 }
