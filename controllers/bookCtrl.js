@@ -1,5 +1,6 @@
 const Book = require('../models/bookModel');
 const bookRepository = require('../repositories/bookRepository');
+const reviewRepository = require('../repositories/reviewRepository');
 const bookService = require('../services/bookService');
 const logger = require('../utils/appLogger');
 
@@ -44,8 +45,13 @@ const post = async (req, res) => {
 const getById = async (req, res) => {
     const id = req.params.id;
     const book = await bookRepository.getById(id)
+    const reviews = await reviewRepository.getByBookId(id);
+
+    const jsonBook = book.toJSON();
+    jsonBook.reviews = reviews;
+
     res.status(200);
-    res.json(book);
+    res.json(jsonBook);
 };
 
 const remove = async (req, res) => {
