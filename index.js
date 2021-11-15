@@ -2,6 +2,7 @@ const express = require('express');
 const defaultRouter = require('./routes/defaultRouter');
 const bookRouter = require('./routes/bookRouter');
 const userRouter = require('./routes/userRouter');
+const reviewRouter = require('./routes/reviewRouter');
 const middlewares = require('./utils/middlewares');
 
 const bodyParser = require('body-parser');
@@ -46,6 +47,11 @@ app.use(defaultRouter);
 app.use('/api/users', userRouter);
 
 // app.use(middlewares.basicAuth);
-app.use(middlewares.tokenAuth);
+// app.use(middlewares.tokenAuth);
 // private
+app.use('/api/reviews', reviewRouter);
 app.use('/api/books', bookRouter);
+
+// db design
+// books: [{id:1,name:'CC', reviews:[{id:1,}]}]
+
