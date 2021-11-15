@@ -8,8 +8,9 @@ function add(data) {
 }
 
 function getUser(data) {
-    const where = { username: data.username, password: data.password };
-    return User.findOne(where);
+    const where = { username: data.username };
+    const projection = { __v: 0 };
+    return User.findOne(where, projection);
 }
 
 module.exports = {

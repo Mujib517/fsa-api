@@ -1,4 +1,5 @@
 const userRepository = require('../repositories/userRepository');
+const { comparePasswords } = require('./auth');
 
 //middelware
 async function basicAuth(req, res, next) {
@@ -13,7 +14,11 @@ async function basicAuth(req, res, next) {
     const password = decodedCredentials[1];
 
     const user = await userRepository.getUser({ username, password });
-    if (user) next();
+    if (user) {
+        const result = comparePasswords(user.password, password);
+        if (result) next();
+        else res.status(401).send("Unauthorized");
+    }
     else res.status(401).send("Unauthorized");
 }
 
