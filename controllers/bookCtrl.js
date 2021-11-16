@@ -12,6 +12,7 @@ const formatRating = (data) => {
 
 const get = async (req, res) => {
     try {
+        const imageHost = `${req.protocol}://${req.headers.host}`;
         logger.info("request arrived");
         logger.info(req);
         const options = {
@@ -21,7 +22,7 @@ const get = async (req, res) => {
             direction: req.query.direction || 'desc',
             search: req.query.search || ''
         }
-        const response = await bookService.getAll(options);
+        const response = await bookService.getAll(options, imageHost);
         res.status(200).json(response);
         logger.info(res);
     } catch (e) {
