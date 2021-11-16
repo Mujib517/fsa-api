@@ -4,6 +4,12 @@ const reviewRepository = require('../repositories/reviewRepository');
 const bookService = require('../services/bookService');
 const logger = require('../utils/appLogger');
 
+const formatRating = (data) => {
+    if (data && data.length > 0) {
+        return parseInt(data[0].avgRating);
+    }
+}
+
 const get = async (req, res) => {
     try {
         logger.info("request arrived");
@@ -46,9 +52,10 @@ const getById = async (req, res) => {
     const id = req.params.id;
     const book = await bookRepository.getById(id)
     const reviews = await reviewRepository.getByBookId(id);
-
+    const avgRating = await reviewRepository.getAvgRating(id);
     const jsonBook = book.toJSON();
     jsonBook.reviews = reviews;
+    jsonBook.avgRating = formatRating(avgRating);
 
     res.status(200);
     res.json(jsonBook);
