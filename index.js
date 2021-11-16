@@ -43,6 +43,9 @@ app.use(morgan('combined', { stream: fileStream }));
 // route
 // endpoint
 //public
+
+app.use(express.static('uploads'));
+
 app.use(defaultRouter);
 app.use('/api/users', userRouter);
 

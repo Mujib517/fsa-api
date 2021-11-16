@@ -17,6 +17,7 @@ const bookSchema = new Schema({
             message: 'Invalid price'
         }
     },
+    image: { type: String },
     createdAt: { type: Date, default: Date.now() },
     updatedAt: { type: Date, default: Date.now() }
 });

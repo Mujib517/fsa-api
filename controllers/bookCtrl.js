@@ -25,6 +25,7 @@ const get = async (req, res) => {
         res.status(200).json(response);
         logger.info(res);
     } catch (e) {
+        console.log(e);
         logger.error(e);
         // TODO: Logging
         res.status(500);
